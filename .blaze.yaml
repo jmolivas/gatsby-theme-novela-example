@@ -5,84 +5,118 @@ project:
   external: false
   provider: github
   deployment:
+    buildCommand: gatsby build
+    builds:
+      master:
+        weight: 1
+        id: _565yqemzi
+        environmentVariables: []
+        branch: master
+    developmentCommand: gatsby develop
+    productionBranch: master
     publishDirectory: public
     packager: npm
     contentDirectory:
       - assets
       - content/authors
       - content/posts
-    buildCommand: gatsby build
-    builds:
-      master:
-        id: _565yqemzi
-        environmentVariables: []
-        branch: master
-        weight: 1
-    developmentCommand: gatsby develop
-    productionBranch: master
   type: gatsby
 schemas:
-  - type: content
-    definitions:
+  - definitions:
       schema:
         id: page
         name: Page
       fields:
-        - widget: text
+        - orderable: true
+          removable: true
+          system: false
+          widget: text
           name: Title
           type: string
           required: true
           value: ''
           id: title
+        - value: ''
+          id: excerpt
           orderable: true
-          removable: true
-          system: false
-        - orderable: true
           removable: true
           system: false
           widget: textarea
           name: Excerpt
           type: string
           required: true
-          value: ''
-          id: excerpt
-        - widget: SlateEditor
-          name: Content
-          type: string
-          required: true
-          value: ''
+        - value: ''
           id: content
           orderable: true
           removable: true
           system: false
-        - type: string
+          widget: SlateEditor
+          name: Content
+          type: string
+          required: true
+        - system: false
+          widget: DatePicker
+          name: Date
+          type: string
           required: true
           value: ''
           id: date
           orderable: true
           removable: true
+        - orderable: true
+          removable: true
           system: false
-          widget: DatePicker
-          name: Date
-        - system: false
           widget: text
           name: Author
           type: string
           required: true
           value: ''
           id: author
-          orderable: true
-          removable: true
-        - value: ''
+        - name: Hero
+          type: string
+          required: true
+          value: ''
           id: hero
           orderable: true
           removable: true
           system: false
           widget: MediaSchema
-          name: Hero
-          type: string
-          required: true
     schema:
+      json:
+        properties:
+          author:
+            default: ''
+            type: string
+            title: Author
+          excerpt:
+            default: ''
+            type: string
+            title: Excerpt
+          hero:
+            title: Hero
+            default: ''
+            type: string
+          content:
+            title: Content
+            default: ''
+            type: string
+          date:
+            default: ''
+            type: string
+            title: Date
+          title:
+            default: ''
+            type: string
+            title: Title
+        required:
+          - title
+          - excerpt
+          - content
+          - date
+          - author
+          - hero
+        type: object
+      name: Page
       ui:
         author:
           'ui:widget': text
@@ -104,89 +138,74 @@ schemas:
           'ui:widget': DatePicker
         title:
           'ui:widget': text
-      json:
-        required:
-          - title
-          - excerpt
-          - content
-          - date
-          - author
-          - hero
-        type: object
-        properties:
-          author:
-            title: Author
-            default: ''
-            type: string
-          excerpt:
-            title: Excerpt
-            default: ''
-            type: string
-          hero:
-            title: Hero
-            default: ''
-            type: string
-          content:
-            title: Content
-            default: ''
-            type: string
-          date:
-            title: Date
-            default: ''
-            type: string
-          title:
-            default: ''
-            type: string
-            title: Title
-      name: Page
-  - type: dataset
-    definitions:
+    type: content
+  - definitions:
+      schema:
+        name: Authors
+        id: authors
       fields:
-        - system: false
+        - orderable: true
+          removable: true
+          system: false
           widget: text
           name: Name
           type: string
           required: true
           value: ''
           id: name
-          orderable: true
-          removable: true
-        - value: ''
-          id: avatar
-          orderable: true
+        - orderable: true
           removable: true
           system: false
           widget: MediaSchema
           name: Avatar
           type: string
           required: true
-        - orderable: true
-          removable: true
-          system: false
+          value: ''
+          id: avatar
+        - system: false
           widget: textarea
           name: Bio
           type: string
           required: true
           value: ''
           id: bio
-        - value: ''
-          id: featured
           orderable: true
+          removable: true
+        - orderable: true
           removable: true
           system: false
           widget: checkbox
           name: Featured
           type: boolean
           required: false
-      schema:
-        name: Authors
-        id: authors
+          value: ''
+          id: featured
     schema:
+      json:
+        properties:
+          avatar:
+            default: ''
+            type: string
+            title: Avatar
+          featured:
+            default: ''
+            type: boolean
+            title: Featured
+          name:
+            title: Name
+            default: ''
+            type: string
+          bio:
+            title: Bio
+            default: ''
+            type: string
+        required:
+          - name
+          - avatar
+          - bio
+        type: object
+      name: Authors
       ui:
-        avatar:
-          'ui:widget': MediaSchema
-        featured:
-          'ui:widget': checkbox
         name:
           'ui:widget': text
         'ui:order':
@@ -197,34 +216,50 @@ schemas:
           - '*'
         bio:
           'ui:widget': textarea
-      json:
-        required:
-          - name
-          - avatar
-          - bio
-        type: object
-        properties:
-          bio:
-            title: Bio
-            default: ''
-            type: string
-          avatar:
-            default: ''
-            type: string
-            title: Avatar
-          featured:
-            title: Featured
-            default: ''
-            type: boolean
-          name:
-            default: ''
-            type: string
-            title: Name
-      name: Authors
+        avatar:
+          'ui:widget': MediaSchema
+        featured:
+          'ui:widget': checkbox
+    type: dataset
 mapping:
   content:
     - schema: page
       path: content/posts/2017-04-28-understanding-the-gatsby-lifecycle/index.mdx
+    - schema: page
+      path: content/posts/2018-04-26-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: content/posts/2017-04-30-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: content/posts/2017-04-27-building-hoppers-media-centre/index.mdx
+    - schema: page
+      path: content/posts/2018-04-29-understanding-the-gatsby-lifecycle/index.mdx
+    - schema: page
+      path: content/posts/2018-04-27-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: content/posts/2018-04-28-building-hoppers-media-centre/index.mdx
+    - schema: page
+      path: content/posts/2019-04-26-building-hoppers-media-centre/index.mdx
+    - schema: page
+      path: content/posts/2019-04-31-understanding-the-gatsby-lifecycle/index.mdx
+    - schema: page
+      path: content/posts/2018-04-31-building-the-new-hopper-com/index.mdx
+    - schema: page
+      path: content/posts/2017-04-31-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: >-
+        content/posts/2017-04-30-why-we-built-a-company-before-a-product/index.mdx
+    - schema: page
+      path: content/posts/2019-04-28-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: content/posts/2019-04-27-how-figma-changed-how-we-design/index.mdx
+    - schema: page
+      path: >-
+        content/posts/2018-04-30-why-we-built-a-company-before-a-product/index.mdx
+    - schema: page
+      path: content/posts/2019-04-29-building-the-new-hopper-com/index.mdx
+    - schema: page
+      path: >-
+        content/posts/2019-04-30-why-we-built-a-company-before-a-product/index.mdx
   dataset:
     - schema: authors
       path: content/authors/authors.yml

@@ -1,25 +1,25 @@
-- name: Dennis Brotzky
-  bio: |
-    Written by You. This is where your author bio lives. Share your work, your
-    joys and of course, your Twitter handle.
-  avatar: ./avatars/dennis-brotzky.jpg
+- avatar: ./avatars/dennis-brotzky.jpg
   featured: true
-- name: Thiago Costa
+  name: Dennis Brotzky
   bio: |
     Written by You. This is where your author bio lives. Share your work, your
     joys and of course, your Twitter handle.
-  avatar: ./avatars/thiago-costa.png
+- avatar: ./avatars/thiago-costa.png
   featured: true
-- name: Brad Tiller
+  name: Thiago Costa
   bio: |
     Written by You. This is where your author bio lives. Share your work, your
     joys and of course, your Twitter handle.
-  avatar: ./avatars/brad-tiller.png
-- avatar: ./avatars/mack-mansouri.png
-  name: Mack Mansouri
+- avatar: ./avatars/brad-tiller.png
+  name: Brad Tiller
   bio: |
     Written by You. This is where your author bio lives. Share your work, your
     joys and of course, your Twitter handle.
-- name: Jesus Manuel Olivas
+- name: Mack Mansouri
+  bio: |
+    Written by You. This is where your author bio lives. Share your work, your
+    joys and of course, your Twitter handle.
+  avatar: ./avatars/mack-mansouri.png
+- avatar: avatars/mack-mansouri.png
+  name: Jesus Manuel Olivas
   bio: lorem
-  avatar: avatars/mack-mansouri.png

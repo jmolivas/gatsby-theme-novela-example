@@ -5,89 +5,86 @@ project:
   external: false
   provider: github
   deployment:
-    buildCommand: gatsby build
-    builds:
-      master:
-        weight: 1
-        id: _565yqemzi
-        environmentVariables: []
-        branch: master
-    developmentCommand: gatsby develop
-    productionBranch: master
-    publishDirectory: public
     packager: npm
     contentDirectory:
       - assets
       - content/authors
       - content/posts
+    buildCommand: gatsby build
+    builds:
+      master:
+        branch: master
+        weight: 1
+        id: _565yqemzi
+        environmentVariables: []
+    developmentCommand: gatsby develop
+    productionBranch: master
+    publishDirectory: public
   type: gatsby
 schemas:
-  - definitions:
+  - type: content
+    definitions:
       schema:
         id: page
         name: Page
       fields:
-        - orderable: true
-          removable: true
-          system: false
+        - system: false
           widget: text
           name: Title
           type: string
           required: true
           value: ''
           id: title
-        - value: ''
+          orderable: true
+          removable: true
+        - widget: textarea
+          name: Excerpt
+          type: string
+          required: true
+          value: ''
           id: excerpt
           orderable: true
           removable: true
           system: false
-          widget: textarea
-          name: Excerpt
+        - name: Content
           type: string
           required: true
-        - value: ''
+          value: ''
           id: content
           orderable: true
           removable: true
           system: false
           widget: SlateEditor
-          name: Content
-          type: string
-          required: true
-        - system: false
+        - orderable: true
+          removable: true
+          system: false
           widget: DatePicker
           name: Date
           type: string
           required: true
           value: ''
           id: date
+        - type: string
+          required: true
+          value: ''
+          id: author
           orderable: true
-          removable: true
-        - orderable: true
           removable: true
           system: false
           widget: text
           name: Author
-          type: string
-          required: true
-          value: ''
-          id: author
-        - name: Hero
+        - system: false
+          widget: MediaSchema
+          name: Hero
           type: string
           required: true
           value: ''
           id: hero
           orderable: true
           removable: true
-          system: false
-          widget: MediaSchema
     schema:
       json:
         properties:
-          author:
-            default: ''
-            type: string
-            title: Author
           excerpt:
             default: ''
             type: string
@@ -97,17 +94,21 @@ schemas:
             default: ''
             type: string
           content:
+            default: ''
+            type: string
             title: Content
-            default: ''
-            type: string
           date:
-            default: ''
-            type: string
             title: Date
-          title:
             default: ''
             type: string
+          title:
             title: Title
+            default: ''
+            type: string
+          author:
+            title: Author
+            default: ''
+            type: string
         required:
           - title
           - excerpt
@@ -118,8 +119,6 @@ schemas:
         type: object
       name: Page
       ui:
-        author:
-          'ui:widget': text
         excerpt:
           'ui:widget': textarea
         hero:
@@ -138,11 +137,12 @@ schemas:
           'ui:widget': DatePicker
         title:
           'ui:widget': text
-    type: content
+        author:
+          'ui:widget': text
   - definitions:
       schema:
-        name: Authors
         id: authors
+        name: Authors
       fields:
         - orderable: true
           removable: true
@@ -153,16 +153,17 @@ schemas:
           required: true
           value: ''
           id: name
-        - orderable: true
+        - value: ''
+          id: avatar
+          orderable: true
           removable: true
           system: false
           widget: MediaSchema
           name: Avatar
           type: string
           required: true
-          value: ''
-          id: avatar
-        - system: false
+        - removable: true
+          system: false
           widget: textarea
           name: Bio
           type: string
@@ -170,7 +171,6 @@ schemas:
           value: ''
           id: bio
           orderable: true
-          removable: true
         - orderable: true
           removable: true
           system: false
@@ -182,32 +182,30 @@ schemas:
           id: featured
     schema:
       json:
-        properties:
-          avatar:
-            default: ''
-            type: string
-            title: Avatar
-          featured:
-            default: ''
-            type: boolean
-            title: Featured
-          name:
-            title: Name
-            default: ''
-            type: string
-          bio:
-            title: Bio
-            default: ''
-            type: string
         required:
           - name
           - avatar
           - bio
         type: object
+        properties:
+          name:
+            title: Name
+            default: ''
+            type: string
+          bio:
+            default: ''
+            type: string
+            title: Bio
+          avatar:
+            title: Avatar
+            default: ''
+            type: string
+          featured:
+            title: Featured
+            default: ''
+            type: boolean
       name: Authors
       ui:
-        name:
-          'ui:widget': text
         'ui:order':
           - name
           - avatar
@@ -220,6 +218,8 @@ schemas:
           'ui:widget': MediaSchema
         featured:
           'ui:widget': checkbox
+        name:
+          'ui:widget': text
     type: dataset
 mapping:
   content:

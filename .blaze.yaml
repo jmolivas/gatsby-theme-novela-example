@@ -1,19 +1,10 @@
 project:
-  type: gatsby
   status: active
   name: jmolivas/gatsby-theme-novela-example
   buildStatus: ready
   external: false
   provider: github
   deployment:
-    builds:
-      master:
-        branch: master
-        weight: 1
-        id: _565yqemzi
-        environmentVariables: []
-    developmentCommand: gatsby develop
-    productionBranch: master
     publishDirectory: public
     packager: npm
     contentDirectory:
@@ -21,75 +12,183 @@ project:
       - content/authors
       - content/posts
     buildCommand: gatsby build
+    builds:
+      master:
+        id: _565yqemzi
+        environmentVariables: []
+        branch: master
+        weight: 1
+    developmentCommand: gatsby develop
+    productionBranch: master
+  type: gatsby
 schemas:
-  - type: dataset
+  - type: content
     definitions:
+      schema:
+        id: page
+        name: Page
       fields:
+        - widget: text
+          name: Title
+          type: string
+          required: true
+          value: ''
+          id: title
+          orderable: true
+          removable: true
+          system: false
         - orderable: true
           removable: true
           system: false
+          widget: textarea
+          name: Excerpt
+          type: string
+          required: true
+          value: ''
+          id: excerpt
+        - widget: SlateEditor
+          name: Content
+          type: string
+          required: true
+          value: ''
+          id: content
+          orderable: true
+          removable: true
+          system: false
+        - type: string
+          required: true
+          value: ''
+          id: date
+          orderable: true
+          removable: true
+          system: false
+          widget: DatePicker
+          name: Date
+        - system: false
+          widget: text
+          name: Author
+          type: string
+          required: true
+          value: ''
+          id: author
+          orderable: true
+          removable: true
+        - value: ''
+          id: hero
+          orderable: true
+          removable: true
+          system: false
+          widget: MediaSchema
+          name: Hero
+          type: string
+          required: true
+    schema:
+      ui:
+        author:
+          'ui:widget': text
+        excerpt:
+          'ui:widget': textarea
+        hero:
+          'ui:widget': MediaSchema
+        'ui:order':
+          - title
+          - excerpt
+          - content
+          - date
+          - author
+          - hero
+          - '*'
+        content:
+          'ui:widget': SlateEditor
+        date:
+          'ui:widget': DatePicker
+        title:
+          'ui:widget': text
+      json:
+        required:
+          - title
+          - excerpt
+          - content
+          - date
+          - author
+          - hero
+        type: object
+        properties:
+          author:
+            title: Author
+            default: ''
+            type: string
+          excerpt:
+            title: Excerpt
+            default: ''
+            type: string
+          hero:
+            title: Hero
+            default: ''
+            type: string
+          content:
+            title: Content
+            default: ''
+            type: string
+          date:
+            title: Date
+            default: ''
+            type: string
+          title:
+            default: ''
+            type: string
+            title: Title
+      name: Page
+  - type: dataset
+    definitions:
+      fields:
+        - system: false
           widget: text
           name: Name
           type: string
           required: true
           value: ''
           id: name
-        - removable: true
+          orderable: true
+          removable: true
+        - value: ''
+          id: avatar
+          orderable: true
+          removable: true
           system: false
           widget: MediaSchema
           name: Avatar
           type: string
           required: true
-          value: ''
-          id: avatar
-          orderable: true
-        - name: Bio
+        - orderable: true
+          removable: true
+          system: false
+          widget: textarea
+          name: Bio
           type: string
           required: true
           value: ''
           id: bio
+        - value: ''
+          id: featured
           orderable: true
           removable: true
           system: false
-          widget: textarea
-        - system: false
           widget: checkbox
           name: Featured
           type: boolean
           required: false
-          value: ''
-          id: featured
-          orderable: true
-          removable: true
       schema:
         name: Authors
         id: authors
     schema:
-      json:
-        required:
-          - name
-          - avatar
-          - bio
-        type: object
-        properties:
-          bio:
-            default: ''
-            type: string
-            title: Bio
-          avatar:
-            default: ''
-            type: string
-            title: Avatar
-          featured:
-            default: ''
-            type: boolean
-            title: Featured
-          name:
-            title: Name
-            default: ''
-            type: string
-      name: Authors
       ui:
+        avatar:
+          'ui:widget': MediaSchema
+        featured:
+          'ui:widget': checkbox
+        name:
+          'ui:widget': text
         'ui:order':
           - name
           - avatar
@@ -98,14 +197,34 @@ schemas:
           - '*'
         bio:
           'ui:widget': textarea
-        avatar:
-          'ui:widget': MediaSchema
-        featured:
-          'ui:widget': checkbox
-        name:
-          'ui:widget': text
+      json:
+        required:
+          - name
+          - avatar
+          - bio
+        type: object
+        properties:
+          bio:
+            title: Bio
+            default: ''
+            type: string
+          avatar:
+            default: ''
+            type: string
+            title: Avatar
+          featured:
+            title: Featured
+            default: ''
+            type: boolean
+          name:
+            default: ''
+            type: string
+            title: Name
+      name: Authors
 mapping:
-  content: []
+  content:
+    - schema: page
+      path: content/posts/2017-04-28-understanding-the-gatsby-lifecycle/index.mdx
   dataset:
     - schema: authors
       path: content/authors/authors.yml

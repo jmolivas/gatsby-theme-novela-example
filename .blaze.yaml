@@ -1,0 +1,112 @@
+project:
+  type: gatsby
+  status: active
+  name: jmolivas/gatsby-theme-novela-example
+  buildStatus: ready
+  external: false
+  provider: github
+  deployment:
+    builds:
+      master:
+        branch: master
+        weight: 1
+        id: _565yqemzi
+        environmentVariables: []
+    developmentCommand: gatsby develop
+    productionBranch: master
+    publishDirectory: public
+    packager: npm
+    contentDirectory:
+      - assets
+      - content/authors
+      - content/posts
+    buildCommand: gatsby build
+schemas:
+  - type: dataset
+    definitions:
+      fields:
+        - orderable: true
+          removable: true
+          system: false
+          widget: text
+          name: Name
+          type: string
+          required: true
+          value: ''
+          id: name
+        - removable: true
+          system: false
+          widget: MediaSchema
+          name: Avatar
+          type: string
+          required: true
+          value: ''
+          id: avatar
+          orderable: true
+        - name: Bio
+          type: string
+          required: true
+          value: ''
+          id: bio
+          orderable: true
+          removable: true
+          system: false
+          widget: textarea
+        - system: false
+          widget: checkbox
+          name: Featured
+          type: boolean
+          required: false
+          value: ''
+          id: featured
+          orderable: true
+          removable: true
+      schema:
+        name: Authors
+        id: authors
+    schema:
+      json:
+        required:
+          - name
+          - avatar
+          - bio
+        type: object
+        properties:
+          bio:
+            default: ''
+            type: string
+            title: Bio
+          avatar:
+            default: ''
+            type: string
+            title: Avatar
+          featured:
+            default: ''
+            type: boolean
+            title: Featured
+          name:
+            title: Name
+            default: ''
+            type: string
+      name: Authors
+      ui:
+        'ui:order':
+          - name
+          - avatar
+          - bio
+          - featured
+          - '*'
+        bio:
+          'ui:widget': textarea
+        avatar:
+          'ui:widget': MediaSchema
+        featured:
+          'ui:widget': checkbox
+        name:
+          'ui:widget': text
+mapping:
+  content: []
+  dataset:
+    - schema: authors
+      path: content/authors/authors.yml
+  form: []
